@@ -1,0 +1,109 @@
+body.vertical-layout.vertical-menu-modern .horizontal-menu-wrapper {
+  display: none;
+}
+
+.horizontal-menu > .main-menu {
+  display: none;
+}
+.horizontal-menu .fixed-top {
+  left: 0;
+}
+
+html body.navbar-static .app-content .header-navbar {
+  background: transparent;
+  box-shadow: none !important;
+}
+
+@media (max-width: 575.98px) {
+  body.vertical-layout:not(.horizontal-layout).navbar-floating .header-navbar {
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+  }
+}
+
+.horizontal-menu>.main-menu,
+body.vertical-layout.vertical-menu-modern .horizontal-menu-wrapper {
+  display: none
+}
+
+.horizontal-menu .fixed-top {
+  left: 0
+}
+
+html body.navbar-static .app-content .header-navbar {
+  background: transparent;
+  box-shadow: none !important
+}
+
+@media(max-width:575.98px) {
+  body.vertical-layout:not(.horizontal-layout).navbar-floating .header-navbar {
+    margin-left: 1.2rem;
+    margin-right: 1.2rem
+  }
+}
+
+.main-menu .navbar-header {
+  padding: 0rem 1rem 0.3rem 1.50rem;
+}
+
+.modal-header .close {
+  margin: -0.3rem -0.4rem -.8rem auto;
+}
+
+.modal .modal-header .close {
+  box-shadow: 0 1px 3px 0 rgb(34 41 47 / 10%);
+}
+
+.modal .modal-header .close:active,
+.modal .modal-header .close:focus,
+.modal .modal-header .close:hover {
+  transform: translate(8px, -2px);
+}
+
+.popover-body {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.popover-body>img {
+  width: 100%;
+  height: 100%;
+}
+
+.dt-actions .dropdown-toggle.actions::after {
+  display: none;
+}
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+
+.gu-hide {
+  display: none !important;
+}
+
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+
+.draggable {
+  cursor: move;
+}
+
+.navbar-header {
+  padding: 0 2rem;
+}

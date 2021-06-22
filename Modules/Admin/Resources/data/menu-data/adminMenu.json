@@ -1,0 +1,23 @@
+{
+  "menu": [
+    {
+      "url": "admin",
+      "name": "Home",
+      "icon": "home",
+      "slug": "home"
+    },
+    {
+      "url": "#",
+      "name": "Dashboard",
+      "icon": "activity",
+      "slug": "dashboard"
+    },
+    {
+      "url": "admin/clients",
+      "name": "Clients",
+      "icon": "users",
+      "slug": "clients.index"
+    }
+    
+  ]
+}
