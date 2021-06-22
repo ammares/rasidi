@@ -7,16 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class SignUpRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
      * Get the validation rules that apply to the request.
      *
      * @return array
@@ -24,12 +14,27 @@ class SignUpRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|unique:clients,email',
+            'email' => 'required|email',
             'first_name' => 'required|string',
+            'middle_name' => 'required|string',
             'last_name' => 'required|string',
             'password' => 'required|string|min:8|confirmed',
-            'mobile' => 'required|regex:/^\+[1-9]\d*$/|unique:clients,mobile',
-            'device_name' => 'nullable|string',
+            'mobile_number' => 'required|regex:/^\+[1-9]\d*$/|unique:users,mobile_number',
+            'phone_number' => 'required|string',
+            'national_num' => 'required|string',
+            'address' => 'required|address',
+            'online' => 'required|in:0,1',
+            'balance' => 'nullable|integer'
         ];
+    }
+
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
     }
 }

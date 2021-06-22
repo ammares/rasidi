@@ -8,12 +8,13 @@ use App\Http\Controllers\API\LoginController;
 use App\Http\Controllers\API\ProvidersController;
 use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\UsersController;
+use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\VerificationController;
 use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\StaticContentController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('register', [RegisterController::class, 'register']);
+Route::post('register', [UserController::class, 'register']);
 Route::post('login', [LoginController::class, 'login']);
 Route::post('forgot_password', [ForgotPasswordController::class, 'sendCode']);
 Route::post('confirm_reset_code', [ForgotPasswordController::class, 'confirmCode']);
