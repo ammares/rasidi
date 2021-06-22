@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 
@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         try {
             //$inputs = $request->validated();
-            User::create($request->all());
+            Client::create($request->all());
             return response()->json([
                 'message' => 'Sign Up Successfully',
             ],200);
