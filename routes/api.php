@@ -15,7 +15,7 @@ use App\Http\Controllers\API\StaticContentController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', [UserController::class, 'register']);
-Route::post('login', [LoginController::class, 'login']);
+Route::post('login', [UserController::class, 'login']);
 Route::post('forgot_password', [ForgotPasswordController::class, 'sendCode']);
 Route::post('confirm_reset_code', [ForgotPasswordController::class, 'confirmCode']);
 Route::post('reset_password', [ForgotPasswordController::class, 'reset']);

@@ -13,9 +13,10 @@ class UserController extends Controller
     {
         try {
             //$inputs = $request->validated();
-            Client::create($request->all());
+            $Client= Client::create($request->all());
             return response()->json([
                 'message' => 'Sign Up Successfully',
+                'data' => $Client->id
             ],200);
         } catch (\Exception $exception) {
             return response()->json([
@@ -27,11 +28,11 @@ class UserController extends Controller
     public function login(Request $request)
     {
         try {
-            $mobile_number = $request['mobile_number'];
-            $user = User::where('mobile_number', $mobile_number)->firstOrFail();
+            $mobile = $request['mobile'];
+            $Client = Client::where('mobile', $mobile)->firstOrFail();
             return response()->json([
                 'message' => 'Logged In Successfully',
-                'data' => $user
+                'data' => $Client
             ]);
         } catch (\Exception $exception) {
             return response()->json([
