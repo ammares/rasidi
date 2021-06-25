@@ -18,7 +18,8 @@ Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
 Route::group(['prefix' => 'user'], function () {
-    Route::get('operations', [UserController::class, 'operations']);
+    Route::post('operations', [UserController::class, 'operations']);
+    Route::get('categories', [UserController::class, 'categories']);
     
 });
 Route::post('forgot_password', [ForgotPasswordController::class, 'sendCode']);

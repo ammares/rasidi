@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
+use App\Models\Category;
 use App\Models\TransferOperation;
 
 class UserController extends Controller
@@ -48,7 +49,10 @@ class UserController extends Controller
     {
         try {
             $client_id = $request['id'];
-            $operations = TransferOperation::where('client_id',$client_id)->firstOrFail();
+            $operations = TransferOperation::where('client_id',$client_id)->get();
+            foreach($operations as $operation){
+                $operation->category_id=(string)Category::where('id',$operation->category_id)->pluck('amount');
+            }
             return response()->json([
                 'code' => '200',
                 'message' => 'Logged In Successfully',
@@ -60,6 +64,24 @@ class UserController extends Controller
             ]);
         }  
     }
+
+    public function categories()
+    {
+        try {
+            $categories = Category::all();
+            return response()->json([
+                'code' => '200',
+                'message' => 'Logged In Successfully',
+                'data' => $categories
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ]);
+        }  
+    }
+
+    
 
 
 }
