@@ -51,7 +51,7 @@ class UserController extends Controller
             $client_id = $request['id'];
             $operations = TransferOperation::where('client_id',$client_id)->get();
             foreach($operations as $operation){
-                $operation->category_id=(string)Category::where('id',$operation->category_id)->pluck('amount');
+                $operation->category_id=(string)Category::where('id',$operation->category_id)->pluck('amount')->first();
             }
             return response()->json([
                 'code' => '200',
