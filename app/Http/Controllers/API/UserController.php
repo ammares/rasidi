@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
+use App\Models\TransferOperation;
 
 class UserController extends Controller
 {
@@ -31,8 +32,27 @@ class UserController extends Controller
             $mobile = $request['mobile'];
             $Client = Client::where('mobile', $mobile)->firstOrFail();
             return response()->json([
+                'code' => '200',
                 'message' => 'Logged In Successfully',
                 'data' => $Client
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code' =>'400',
+                'message' => $exception->getMessage(),
+            ]);
+        }  
+    }
+
+    public function operations(Request $request)
+    {
+        try {
+            $client_id = $request['id'];
+            $operations = TransferOperation::where('client_id',$client_id)->firstOrFail();
+            return response()->json([
+                'code' => '200',
+                'message' => 'Logged In Successfully',
+                'data' => $operations
             ]);
         } catch (\Exception $exception) {
             return response()->json([

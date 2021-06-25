@@ -16,6 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('operations', [UserController::class, 'operations']);
+    
+});
 Route::post('forgot_password', [ForgotPasswordController::class, 'sendCode']);
 Route::post('confirm_reset_code', [ForgotPasswordController::class, 'confirmCode']);
 Route::post('reset_password', [ForgotPasswordController::class, 'reset']);
@@ -27,12 +32,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('verify_email', [VerificationController::class, 'verifyEmail']);
 
 
-    Route::group(['prefix' => 'user'], function () {
-        Route::get('', [UsersController::class, 'show']);
-        Route::post('location', [UsersController::class, 'saveLocation']);
-        Route::post('energy_consumption', [UsersController::class, 'saveEnergyConsumption']);
-        Route::post('solar_energy', [UsersController::class, 'saveSolarEnergy']);
-    });
+    
 
     Route::group(['prefix' => 'gateways'], function () {
         Route::post('register', [GatewaysController::class, 'register']);
