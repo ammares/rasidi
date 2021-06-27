@@ -81,6 +81,25 @@
     </div>
   </div>
 
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <a href="{{ route('settings.transfer_operations') }}">
+          <h4 class="card-title">
+            <i class="fa fa-hand-holding-usd fa-lg"></i> {{ __('global.transfer_operations') }}
+          </h4>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          <p>
+            Show all transfer operations to clients
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- <div class="col-md-4">
     <div class="card">
       <div class="card-header">

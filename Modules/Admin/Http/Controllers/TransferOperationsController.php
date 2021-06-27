@@ -3,7 +3,7 @@
 namespace Modules\Admin\Http\Controllers;
 
 use App\Helpers\Helper;
-use App\Models\Category;
+use App\Models\TransferOperation;
 use App\Models\Introduction;
 use App\Models\IntroductionTranslation;
 use Illuminate\Http\Request;
@@ -13,22 +13,21 @@ use Modules\Admin\Http\Requests\InroductionReorderRequest;
 use Modules\Admin\Http\Requests\IntroductionRequest;
 use Illuminate\Support\Facades\DB;
 
-class CategoriesController extends Controller
+class TransferOperationsController extends Controller
 {
     public function index()
     {
         if (\Request::ajax()) {
             return response()->json([
-                'data' => Category::loadAll(),
-
+                'data' => TransferOperation::loadAll()
             ], 200);
         }
         $breadcrumbs = [
             ['link' => "admin/settings", 'name' => "Settings"],
-            ['name' => __('global.recharge_categories')]
+            ['name' => __('global.transfer_operations')]
         ];
 
-        return view('admin::pages/settings/categories/index', [
+        return view('admin::pages/settings/transfer_operations/index', [
             'breadcrumbs' => $breadcrumbs,
         ]);
     }

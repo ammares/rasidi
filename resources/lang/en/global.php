@@ -366,4 +366,8 @@ return [
     'yes' => 'Yes',
     'amount' => 'Amount',
     'price' => 'Price',
+    'transfer_operations' => 'Transfer Operations',
+    'mobile' => 'Mobile',
+    'sim_type' => 'Sim Type'
+    
 ];

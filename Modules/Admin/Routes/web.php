@@ -21,6 +21,7 @@ use Modules\Admin\Http\Controllers\ProvidersController;
 use Modules\Admin\Http\Controllers\ReportsController;
 use Modules\Admin\Http\Controllers\SettingsController;
 use Modules\Admin\Http\Controllers\SystemPreferencesController;
+use Modules\Admin\Http\Controllers\TransferOperationsController;
 use Modules\Admin\Http\Controllers\UserPreferencesController;
 use Modules\Admin\Http\Controllers\UserProfileController;
 use Modules\Admin\Http\Controllers\UsersController;
@@ -204,6 +205,11 @@ Route::prefix('admin')->group(function () {
 
             Route::prefix('categories')->group(function () {
                 Route::get('/', [CategoriesController::class, 'index'])->name('settings.categories');
+                
+            });
+
+            Route::prefix('transfer_operations')->group(function () {
+                Route::get('/', [TransferOperationsController::class, 'index'])->name('settings.transfer_operations');
                 
             });
         });
