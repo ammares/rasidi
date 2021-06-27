@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Modules\Admin\Http\Controllers\CategoriesController;
 use Modules\Admin\Http\Controllers\ClientsController;
 use Modules\Admin\Http\Controllers\ContactUsController;
 use Modules\Admin\Http\Controllers\DevicesController;
@@ -199,6 +200,11 @@ Route::prefix('admin')->group(function () {
                 Route::patch('{id}', [ProvidersController::class, 'update'])->name('settings.providers.update');
                 Route::delete('{id}/destroy', [ProvidersController::class, 'destroy'])->name('settings.providers.destroy');
                 Route::patch('{id}/verify_unverify', [ProvidersController::class, 'verifyUnverify'])->name('settings.providers.verify_unverify');
+            });
+
+            Route::prefix('categories')->group(function () {
+                Route::get('/', [CategoriesController::class, 'index'])->name('settings.categories');
+                
             });
         });
 

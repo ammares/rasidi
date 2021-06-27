@@ -13,4 +13,16 @@ class Category extends Model
         'amount',
         'price',
     ];
+
+    public static function loadAll()
+    {
+        
+        return self::select(
+            'id',
+            'amount',
+            'price',
+            'created_at'
+            )->orderBy('amount')
+            ->get();
+    }
 }

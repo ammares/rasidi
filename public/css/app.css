@@ -12201,6 +12201,7 @@ input[type=number]::-webkit-outer-spin-button {
   padding: 0.8rem 1rem;
   flex-basis: 100%;
   transition: 300ms ease all;
+  font-size: initial;
   margin-left: 0;
 }
 @media (min-width: 576px) {
@@ -19434,7 +19435,7 @@ html .content {
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   min-height: calc(100% - 3.35rem);
-  margin-left: 260px;
+  
 }
 html .content.app-content {
   padding: calc(2rem + 4.45rem + 1.3rem) 2rem 0;

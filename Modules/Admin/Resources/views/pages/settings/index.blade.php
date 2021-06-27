@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="row settings-list">
-  <div class="col-md-4">
+  <!-- <div class="col-md-4">
     <div class="card">
       <div class="card-header">
         <a href="{{ route('settings.general') }}">
@@ -22,43 +22,8 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header">
-        <a href="{{ route('settings.gateways') }}">
-          <h4 class="card-title">
-            <i class="fa fa-keyboard fa-lg"></i> {{ __('global.gateways') }}
-          </h4>
-        </a>
-      </div>
-      <div class="card-body">
-        <div class="card-text">
-          <p>
-            {{ __('global.desc_of_gateway_settings') }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header">
-        <a href="{{ route('settings.devices') }}">
-          <h4 class="card-title">
-            <i class="fa fa-database fa-lg"></i> {{ __('global.power_modules') }}
-          </h4>
-        </a>
-      </div>
-      <div class="card-body">
-        <div class="card-text">
-          <p>
-            {{ __('global.desc_of_power_modules_settings') }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+  </div> -->
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -77,24 +42,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4">
-    <div class="card">
-      <div class="card-header">
-        <a href="{{ route('settings.providers') }}">
-          <h4 class="card-title">
-            <i class="fa fa-plug fa-lg"></i> {{ __('global.providers') }}
-          </h4>
-        </a>
-      </div>
-      <div class="card-body">
-        <div class="card-text">
-          <p>
-            {{ __('global.desc_of_providers_settings') }}
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -113,7 +61,27 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <a href="{{ route('settings.categories') }}">
+          <h4 class="card-title">
+            <i class="fa fa-file-invoice-dollar fa-lg"></i> {{ __('global.recharge_categories') }}
+          </h4>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          <p>
+            Show, edit and add recharge
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="col-md-4">
     <div class="card">
       <div class="card-header">
         <a href="{{ route('settings.email_templates') }}">
@@ -131,6 +99,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -149,6 +118,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -167,6 +137,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -185,6 +156,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -203,6 +175,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -221,6 +194,7 @@
       </div>
     </div>
   </div>
+
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
@@ -238,7 +212,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 @endsection

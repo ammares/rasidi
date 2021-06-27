@@ -14,7 +14,7 @@
         </ul>
       </div>
       <ul class="nav navbar-nav align-items-center ml-auto">
-        <!-- <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link" href="{{ route('messages') }}" data-toggle="tooltip" data-placement="top" title="Messags">
             <i class="ficon" data-feather="mail"></i>
           </a>
@@ -60,7 +60,7 @@
             title="Settings">
             <i class="ficon" data-feather="settings"></i>
           </a>
-        </li> -->
+        </li>
         <li class="nav-item dropdown dropdown-user">
           <a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="javascript:void(0);"
             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -2,11 +2,11 @@
 
 return [
     'custom' => [
-        'mainLayoutType' => 'vertical', // Options[String]: vertical(default), horizontal
+        'mainLayoutType' => 'horizontal', // Options[String]: vertical(default), horizontal
         'theme' => 'light', // options[String]: 'light'(default), 'dark', 'bordered', 'semi-dark'
         'sidebarCollapsed' => true, // options[Boolean]: true, false(default) (warning:this option only applies to the vertical theme.)
         'navbarColor' => '', // options[String]: bg-primary, bg-info, bg-warning, bg-success, bg-danger, bg-dark (default: '' for #fff)
-        'horizontalMenuType' => 'floating', // options[String]: floating(default) / static /sticky (Warning:this option only applies to the Horizontal theme.)
+        'horizontalMenuType' => 'sticky', // options[String]: floating(default) / static /sticky (Warning:this option only applies to the Horizontal theme.)
         'verticalMenuNavbarType' => 'floating', // options[String]: floating(default) / static / sticky / hidden (Warning:this option only applies to the vertical theme)
         'footerType' => 'static', // options[String]: static(default) / sticky / hidden
         'layoutWidth' => 'full', // options[String]: full(default) / boxed,

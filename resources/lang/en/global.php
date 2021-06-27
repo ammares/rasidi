@@ -57,6 +57,7 @@ return [
     'business_profile_pages_help3' => '',
     'cancel' => 'Cancel',
     'category' => 'Category',
+    'recharge_categories' => 'Recharge Categories',
     'change_image' => 'Change image',
     'change_password' => 'Change password',
     'check_all' => 'Check all',
@@ -363,4 +364,6 @@ return [
     'view_all' => 'View All',
     'whoops' => 'Whoops! Something went wrong.',
     'yes' => 'Yes',
+    'amount' => 'Amount',
+    'price' => 'Price',
 ];

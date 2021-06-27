@@ -11,7 +11,7 @@ $configData = App\Helpers\Helper::applClasses();
           <span class="brand-logo">
             <img src="{{asset('storage/logo/logo.png')}}" </span> 
             <h2 class="brand-text p-0">
-            <!-- <svg id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180"
+             <svg id="logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180"
               height="40" viewBox="0 0 233.2 39.7">
               <defs>
                 <radialGradient id="radial-gradient" cx="0.501" cy="0.5" r="0.5" gradientTransform="translate(0)"
@@ -106,17 +106,17 @@ $configData = App\Helpers\Helper::applClasses();
                   d="M216,15.6h4.4l4.5,11.1h.1l4-11.1h4.2L225.6,35a9.332,9.332,0,0,1-1,2,8.7,8.7,0,0,1-1.2,1.4,4.608,4.608,0,0,1-1.7.9,7.55,7.55,0,0,1-2.3.3,11,11,0,0,1-3.1-.4l.5-3.6c.3.1.6.2,1,.3a3.75,3.75,0,0,0,1.1.1,4.121,4.121,0,0,0,1.2-.1,3.552,3.552,0,0,0,.9-.4,4.35,4.35,0,0,0,.6-.7,11.731,11.731,0,0,0,.5-1.1l.8-1.9Z"
                   fill="#ed9f43" />
               </g>
-            </svg> -->
+            </svg> 
             </h2>
         </a>
       </li>
-      <!-- <li class="nav-item nav-toggle">
+       <li class="nav-item nav-toggle">
         <a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse">
           <i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i>
           <i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc"
             data-ticon="disc"></i>
         </a>
-      </li> -->
+      </li>
     </ul>
   </div>
   <div class="shadow-bottom"></div>

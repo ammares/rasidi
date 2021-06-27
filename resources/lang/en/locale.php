@@ -4,5 +4,6 @@ return [
   "Home"=>"Home",
   "Dashboard" => "Dashboard",
   "Clients" => "Clients",
-  "Reports" => "Reports"
+  "Reports" => "Reports",
+  "Settings" => "Settings"
 ];

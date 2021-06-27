@@ -14,16 +14,18 @@ class UserController extends Controller
     public function register(Request $request)
     {
         try {
-            //$inputs = $request->validated();
+            //@todo $inputs = $request->validated();
             $Client= Client::create($request->all());
             return response()->json([
+                'code' => '200',
                 'message' => 'Sign Up Successfully',
                 'data' => $Client->id
-            ],200);
+            ]);
         } catch (\Exception $exception) {
             return response()->json([
-                'message' => $exception->getMessage(),
-            ],200);
+                'code' => '400',
+                'message' => $exception->getMessage(),//@todo check error message from mobile
+            ]);
         }  
     }
 
@@ -55,11 +57,12 @@ class UserController extends Controller
             }
             return response()->json([
                 'code' => '200',
-                'message' => 'Logged In Successfully',
+                'message' => 'Get Operations Successfully',
                 'data' => $operations
             ]);
         } catch (\Exception $exception) {
             return response()->json([
+                'code' =>'400',
                 'message' => $exception->getMessage(),
             ]);
         }  
@@ -71,11 +74,12 @@ class UserController extends Controller
             $categories = Category::all();
             return response()->json([
                 'code' => '200',
-                'message' => 'Logged In Successfully',
+                'message' => 'Get Categories Successfully',
                 'data' => $categories
             ]);
         } catch (\Exception $exception) {
             return response()->json([
+                'code' =>'400',
                 'message' => $exception->getMessage(),
             ]);
         }  
