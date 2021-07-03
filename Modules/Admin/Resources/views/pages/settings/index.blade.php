@@ -67,7 +67,7 @@
       <div class="card-header">
         <a href="{{ route('settings.categories') }}">
           <h4 class="card-title">
-            <i class="fa fa-file-invoice-dollar fa-lg"></i> {{ __('global.recharge_categories') }}
+            <i class="fa fa-file-alt fa-lg"></i> {{ __('global.recharge_categories') }}
           </h4>
         </a>
       </div>
@@ -86,7 +86,7 @@
       <div class="card-header">
         <a href="{{ route('settings.transfer_operations') }}">
           <h4 class="card-title">
-            <i class="fa fa-hand-holding-usd fa-lg"></i> {{ __('global.transfer_operations') }}
+            <i class="fa fa-file-invoice-dollar  fa-lg"></i> {{ __('global.transfer_operations') }}
           </h4>
         </a>
       </div>
@@ -94,6 +94,44 @@
         <div class="card-text">
           <p>
             Show all transfer operations to clients
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <a href="">
+          <h4 class="card-title">
+            <i class="fa fa-hand-holding-usd fa-lg"></i> Charge Operations
+          </h4>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          <p>
+            Show and add charge operations to clients
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <a href="">
+          <h4 class="card-title">
+            <i class="fa fa-donate fa-lg"></i> Clients Bills
+          </h4>
+        </a>
+      </div>
+      <div class="card-body">
+        <div class="card-text">
+          <p>
+            Show, import and export all clients bills
           </p>
         </div>
       </div>

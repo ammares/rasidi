@@ -6,13 +6,7 @@
 <x-admin::table_grid.styles />
 @endsection
 
-@section('actions')
-<x-admin::header_actions>
-    <a type="button" class="btn btn-primary" href="javascript:void(0)">
-        <span class="align-middle">{{ __('global.demand_requests') }}</span>
-    </a>
-</x-admin::header_actions>
-@endsection
+
 
 @section('content')
 <x-admin::table_grid.filters>
@@ -33,7 +27,7 @@
             <x-admin::table_grid.filter_text label="{{__('global.phone')}}" column="clients.mobile"
                 placeholder="{{__('global.phone')}}" />
         </div>
-        
+
         <div class="col-md-6">
             <x-admin::table_grid.filter_select label="{{__('global.verified?')}}"
                 :options="[1 => __('global.verified'), 0 => __('global.not_verified')]"
