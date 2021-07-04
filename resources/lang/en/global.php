@@ -23,6 +23,7 @@ return [
         'submit' => 'Submit',
         'to' => 'To',
     ],
+    'clients_bills' => 'Clients Bills',
     'abilities' => 'Abilities',
     'actions' => 'Actions',
     'activate' => 'Activate',
@@ -368,6 +369,7 @@ return [
     'price' => 'Price',
     'transfer_operations' => 'Transfer Operations',
     'mobile' => 'Mobile',
-    'sim_type' => 'Sim Type'
-    
+    'sim_type' => 'Sim Type',
+    'charge_operations' => 'Charge Operations',
+
 ];

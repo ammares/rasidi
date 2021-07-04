@@ -61,10 +61,10 @@ $(function () {
                                     </a>
                                 </div>
                             </div>
-                            <a href="javascript:;" class="btn btn-icon btn-flat-${row['active'] === '1' ? 'success' : 'danger'} waves-effect" data-id="${row['id']}"
-                            data-name="${row['name']}" data-active="${row['active']}"
+                            <a href="javascript:;" class="btn btn-icon btn-flat-${row['status'] == '1' ? 'success' : 'danger'} waves-effect" data-id="${row['id']}"
+                            data-name="${row['name']}" data-active="${row['status']}"
                             onclick="activateDeactivate(this,'client')">
-                                <i data-toggle="tooltip" data-placement="top" title="${(row['active'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
+                                <i data-toggle="tooltip" data-placement="top" title="${(row['status'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
                                 class="fa fa-check d-inline"></i>
                             </a>`
                         );
@@ -119,6 +119,6 @@ $(function () {
             .data();
     }
 
-    
+
 
 })

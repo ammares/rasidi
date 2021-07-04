@@ -103,7 +103,7 @@
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
-        <a href="">
+        <a href="{{ route('settings.charge_operations') }}">
           <h4 class="card-title">
             <i class="fa fa-hand-holding-usd fa-lg"></i> Charge Operations
           </h4>
@@ -122,7 +122,7 @@
   <div class="col-md-4">
     <div class="card">
       <div class="card-header">
-        <a href="">
+        <a href="{{ route('settings.clients_bills') }}">
           <h4 class="card-title">
             <i class="fa fa-donate fa-lg"></i> Clients Bills
           </h4>

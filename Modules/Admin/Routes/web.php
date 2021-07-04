@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Modules\Admin\Http\Controllers\CategoriesController;
+use Modules\Admin\Http\Controllers\ChargeOperationsController;
 use Modules\Admin\Http\Controllers\ClientsController;
+use Modules\Admin\Http\Controllers\ClientsBillsController;
 use Modules\Admin\Http\Controllers\ContactUsController;
 use Modules\Admin\Http\Controllers\DevicesController;
 use Modules\Admin\Http\Controllers\EmailTemplatesController;
@@ -205,13 +207,23 @@ Route::prefix('admin')->group(function () {
 
             Route::prefix('categories')->group(function () {
                 Route::get('/', [CategoriesController::class, 'index'])->name('settings.categories');
-                
+
             });
 
             Route::prefix('transfer_operations')->group(function () {
                 Route::get('/', [TransferOperationsController::class, 'index'])->name('settings.transfer_operations');
-                
+
             });
+
+            Route::prefix('charge_operations')->group(function () {
+                Route::get('/', [ChargeOperationsController::class, 'index'])->name('settings.charge_operations');
+
+            });
+            Route::prefix('clients_bills')->group(function () {
+                Route::get('/', [ClientsBillsController::class, 'index'])->name('settings.clients_bills');
+
+            });
+
         });
 
         Route::get('mqtt', [MqttController::class, 'index']);

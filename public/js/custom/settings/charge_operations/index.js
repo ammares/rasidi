@@ -1,14 +1,14 @@
 $(function () {
     'use strict';
 
-    var _categories = [];
+    var _charge_operations = [];
 
-    var dt_table_categories = $('.datatables-categories');
+    var dt_table_charge_operations = $('.datatables-charge-operations');
 
-    if (dt_table_categories.length) {
-        var dt_emailtemplates = dt_table_categories.DataTable({
+    if (dt_table_charge_operations.length) {
+        var dt_emailtemplates = dt_table_charge_operations.DataTable({
             ajax: {
-                url: getBaseURL() + 'settings/categories',
+                url: getBaseURL() + 'settings/charge_operations',
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: 'data',
@@ -16,11 +16,18 @@ $(function () {
             },
             columns: [
                 { data: 'id' },
-                { data: 'amount' },
+                { data: 'user_name' },
                 {
-                  data: 'price',
+                    data: 'client_first_name',
+                    render: function (data, type, row, meta) {
+                        return row['client_first_name']+' '+row['client_last_name'] ;
+                    }
+                },
+                { data: 'client_mobile' },
+                {
+                  data: 'amount',
                   render: function (data, type, row, meta) {
-                      return row['price']+' SYP';
+                      return row['amount']+' SYP';
                   }
                  },
                 {
@@ -59,10 +66,10 @@ $(function () {
                                     </a>
                                 </div>
                             </div>
-                            <a href="javascript:;" class="btn btn-icon btn-flat-${row['active'] === '1' ? 'success' : 'danger'} waves-effect" data-id="${row['id']}"
-                            data-name="${row['name']}" data-active="${row['active']}"
+                            <a href="javascript:;" class="btn btn-icon btn-flat-success} waves-effect" data-id="${row['id']}"
+                            data-name="${row['name']}" data-active="${row['status']}"
                             onclick="activateDeactivate(this,'client')">
-                                <i data-toggle="tooltip" data-placement="top" title="${(row['active'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
+                                <i data-toggle="tooltip" data-placement="top" title="${(row['status'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
                                 class="fa fa-check d-inline"></i>
                             </a>`
                         );
@@ -70,7 +77,7 @@ $(function () {
                 },
             ],
             fnRowCallback: function (nRow, aData, iDisplayIndex) {
-                _categories[aData['id']] = aData;
+                _charge_operations[aData['id']] = aData;
                 return nRow;
             },
             dom: '<"card-header border-bottom p-1"<"head-label-client"><"dt-action-buttons text-right"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',

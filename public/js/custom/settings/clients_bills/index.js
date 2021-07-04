@@ -1,14 +1,14 @@
 $(function () {
     'use strict';
 
-    var _categories = [];
+    var clients_bills = [];
 
-    var dt_table_categories = $('.datatables-categories');
+    var dt_tableclients_bills = $('.datatables-clients-bills');
 
-    if (dt_table_categories.length) {
-        var dt_emailtemplates = dt_table_categories.DataTable({
+    if (dt_tableclients_bills.length) {
+        var dt_emailtemplates = dt_tableclients_bills.DataTable({
             ajax: {
-                url: getBaseURL() + 'settings/categories',
+                url: getBaseURL() + 'settings/clients_bills',
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: 'data',
@@ -16,17 +16,30 @@ $(function () {
             },
             columns: [
                 { data: 'id' },
-                { data: 'amount' },
                 {
-                  data: 'price',
+                    data: 'client_first_name',
+                    render: function (data, type, row, meta) {
+                        return row['client_first_name']+' '+row['client_last_name'] ;
+                    }
+                },
+                { data: 'national_num' },
+                { data: 'bill_type' },
+                {
+                  data: 'value',
                   render: function (data, type, row, meta) {
-                      return row['price']+' SYP';
+                      return row['value']+' SYP';
                   }
                  },
+                 {
+                   data: 'paid',
+                   render: function (data, type, row, meta) {
+                       return (row['paid']==0 ? 'Not Paid Yet' : 'Is Paid');
+                   }
+                  },
                 {
-                    data: 'created_at',
+                    data: 'payment_at',
                     render: function (data, type, row, meta) {
-                        return date('d-m-Y g:i A', strtotime(row['created_at']));
+                        return (row['payment_at']?date('d-m-Y g:i A', strtotime(row['payment_at'])):'-');
                     }
                 },
             ],
@@ -59,10 +72,10 @@ $(function () {
                                     </a>
                                 </div>
                             </div>
-                            <a href="javascript:;" class="btn btn-icon btn-flat-${row['active'] === '1' ? 'success' : 'danger'} waves-effect" data-id="${row['id']}"
-                            data-name="${row['name']}" data-active="${row['active']}"
+                            <a href="javascript:;" class="btn btn-icon btn-flat-success} waves-effect" data-id="${row['id']}"
+                            data-name="${row['name']}" data-active="${row['status']}"
                             onclick="activateDeactivate(this,'client')">
-                                <i data-toggle="tooltip" data-placement="top" title="${(row['active'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
+                                <i data-toggle="tooltip" data-placement="top" title="${(row['status'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
                                 class="fa fa-check d-inline"></i>
                             </a>`
                         );
@@ -70,7 +83,7 @@ $(function () {
                 },
             ],
             fnRowCallback: function (nRow, aData, iDisplayIndex) {
-                _categories[aData['id']] = aData;
+                clients_bills[aData['id']] = aData;
                 return nRow;
             },
             dom: '<"card-header border-bottom p-1"<"head-label-client"><"dt-action-buttons text-right"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
