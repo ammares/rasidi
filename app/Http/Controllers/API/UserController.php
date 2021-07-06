@@ -11,10 +11,35 @@ use App\Models\TransferOperation;
 
 class UserController extends Controller
 {
+
+    public function beforRegister(Request $request)
+    {
+        try {
+            $mobile=$request['mobile'];
+            $mobile_exists = Client::where('mobile', $mobile)->pluck('mobile')->first();
+            if ($mobile==$mobile_exists)
+            {
+              return response()->json([
+                  'code' => '400',
+                  'message' => 'Mobile Number is Already Taken',
+              ]);
+            }else{
+              return response()->json([
+                  'code' => '200',
+                  'message' => 'Mobile Number is Valid',
+              ]);
+            }
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code' => '400',
+                'message' => $exception->getMessage(),//@todo check error message from mobile
+            ]);
+        }
+    }
+
     public function register(Request $request)
     {
         try {
-            //@todo $inputs = $request->validated();
             $Client= Client::create($request->all());
             return response()->json([
                 'code' => '200',
@@ -26,7 +51,7 @@ class UserController extends Controller
                 'code' => '400',
                 'message' => $exception->getMessage(),//@todo check error message from mobile
             ]);
-        }  
+        }
     }
 
     public function login(Request $request)
@@ -44,7 +69,7 @@ class UserController extends Controller
                 'code' =>'400',
                 'message' => $exception->getMessage(),
             ]);
-        }  
+        }
     }
 
     public function operations(Request $request)
@@ -65,7 +90,7 @@ class UserController extends Controller
                 'code' =>'400',
                 'message' => $exception->getMessage(),
             ]);
-        }  
+        }
     }
 
     public function categories()
@@ -82,10 +107,10 @@ class UserController extends Controller
                 'code' =>'400',
                 'message' => $exception->getMessage(),
             ]);
-        }  
+        }
     }
 
-    
+
 
 
 }

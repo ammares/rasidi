@@ -14,13 +14,14 @@ use App\Http\Controllers\API\HomeController;
 use App\Http\Controllers\API\StaticContentController;
 use Illuminate\Support\Facades\Route;
 
+Route::post('befor_register', [UserController::class, 'beforRegister']);
 Route::post('register', [UserController::class, 'register']);
 Route::post('login', [UserController::class, 'login']);
 
 Route::group(['prefix' => 'user'], function () {
     Route::post('operations', [UserController::class, 'operations']);
     Route::get('categories', [UserController::class, 'categories']);
-    
+
 });
 Route::post('forgot_password', [ForgotPasswordController::class, 'sendCode']);
 Route::post('confirm_reset_code', [ForgotPasswordController::class, 'confirmCode']);
@@ -33,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('verify_email', [VerificationController::class, 'verifyEmail']);
 
 
-    
+
 
     Route::group(['prefix' => 'gateways'], function () {
         Route::post('register', [GatewaysController::class, 'register']);
