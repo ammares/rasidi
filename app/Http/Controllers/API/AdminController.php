@@ -9,14 +9,41 @@ use App\Http\Requests\EnergyConsumptionRequest;
 use App\Http\Requests\LocationRequest;
 use App\Http\Requests\SolarEnergyRequest;
 use App\Http\Resources\UserResource;
-use App\Models\ClientDevice;
+use App\Models\TransferOperation;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Helper;
 
-class UsersController extends Controller
+class AdminController extends Controller
 {
+
+  public function transferOperations()
+  {
+      try {
+          $transfer_operations = TransferOperation::where('status',0)->get();
+          if (count($transfer_operations)>0 ){
+            return response()->json([
+                'code' => '200',
+                'message' => 'Get Transfer Operations Successfully',
+                'data' => $transfer_operations
+            ]);
+          }else {
+            return response()->json([
+                'code' => '400',
+                'message' => 'No New Transfer Operations',
+                'data' => $transfer_operations
+            ]);
+          }
+
+      } catch (\Exception $exception) {
+          return response()->json([
+              'code' =>'400',
+              'message' => $exception->getMessage(),
+          ]);
+      }
+  }
+
     public function show()
     {
         return UserResource::make(auth()->user());
@@ -49,17 +76,17 @@ class UsersController extends Controller
     public function saveLocation(LocationRequest $request)
     {
         $post_data = $request->validated();
-       
+
         $country_and_city = Helper::getCountryAndCityByGeoCordinate($post_data["latitude"], $post_data["longitude"], App()->getLocale());
         if ($country_and_city['status'] != 200) {
             return response()->json([
                     'message' => $country_and_city['message'],
                 ], $country_and_city['status']);
         }
-       
+
         $post_data['city_id'] = $country_and_city['city_id'];
         $post_data['country_id'] = $country_and_city['country_id'];
-        
+
         auth()->user()->update($post_data);
 
         return response()->json([
@@ -72,8 +99,8 @@ class UsersController extends Controller
         $post_data = $request->validated();
 
         if (isset($post_data['provider_name'])) {
-            $provider_data['country_id'] = auth()->user()->country_id; 
-            $provider_data['verified'] = 0; 
+            $provider_data['country_id'] = auth()->user()->country_id;
+            $provider_data['verified'] = 0;
             foreach (config('translatable.locales') as $locale) {
                 $provider_data[$locale] = ['name' => $post_data['provider_name']];
             }

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\MqttController;
 use App\Http\Controllers\API\DevicesController;
 use App\Http\Controllers\API\ForgotPasswordController;
@@ -24,6 +24,12 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('categories', [UserController::class, 'categories']);
 
 });
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('transfer_operations', [AdminController::class, 'transferOperations']);
+});
+
+
 Route::post('forgot_password', [ForgotPasswordController::class, 'sendCode']);
 Route::post('confirm_reset_code', [ForgotPasswordController::class, 'confirmCode']);
 Route::post('reset_password', [ForgotPasswordController::class, 'reset']);
