@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('befor_register', [UserController::class, 'beforRegister']);
 Route::post('register', [UserController::class, 'register']);
+Route::post('befor_login', [UserController::class, 'beforLogin']);
 Route::post('login', [UserController::class, 'login']);
 
 Route::group(['prefix' => 'user'], function () {

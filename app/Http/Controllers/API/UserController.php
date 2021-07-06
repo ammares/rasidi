@@ -54,6 +54,31 @@ class UserController extends Controller
         }
     }
 
+    public function beforLogin(Request $request)
+    {
+      try {
+          $mobile=$request['mobile'];
+          $mobile_exists = Client::where('mobile', $mobile)->pluck('mobile')->first();
+          if ($mobile==$mobile_exists)
+          {
+            return response()->json([
+                'code' => '200',
+                'message' => 'Mobile Number is Exist',
+            ]);
+          }else{
+            return response()->json([
+                'code' => '400',
+                'message' => 'Mobile Number is Not Exist',
+            ]);
+          }
+      } catch (\Exception $exception) {
+          return response()->json([
+              'code' => '400',
+              'message' => $exception->getMessage(),//@todo check error message from mobile
+          ]);
+      }
+    }
+
     public function login(Request $request)
     {
         try {
