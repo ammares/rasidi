@@ -12,7 +12,7 @@ use App\Models\TransferOperation;
 class UserController extends Controller
 {
 
-    public function beforRegister(Request $request)
+    public function beforeRegister(Request $request)
     {
         try {
             $mobile=$request['mobile'];
@@ -54,7 +54,7 @@ class UserController extends Controller
         }
     }
 
-    public function beforLogin(Request $request)
+    public function beforeLogin(Request $request)
     {
       try {
           $mobile=$request['mobile'];
