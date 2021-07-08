@@ -45,11 +45,7 @@ $configData = App\Helpers\Helper::applClasses();
         {{-- Foreach menu item ends --}}
       </ul>
       <ul class="nav navbar-nav ml-auto">
-         <li class="nav-item" style="margin-top: 2px;">
-          <a class="nav-link" href="{{ route('messages') }}" data-toggle="tooltip" data-placement="top" title="Messags">
-            <i class="ficon" data-feather="mail"></i>
-          </a>
-        </li>
+        
         <li class="nav-item dropdown dropdown-notification mr-25" style="margin-top: 2px;">
           @php
           $unread_notifications_count = auth()->user()->unreadNotifications()->count();

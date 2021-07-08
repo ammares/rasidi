@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Storage;
 use Modules\Admin\Http\Requests\InroductionReorderRequest;
-use Modules\Admin\Http\Requests\IntroductionRequest;
+use Modules\Admin\Http\Requests\CategoryRequest;
 use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
@@ -34,29 +34,17 @@ class CategoriesController extends Controller
     }
 
 
-    public function store(IntroductionRequest $request)
+    public function store(CategoryRequest $request)
     {
         $input = $request->validated();
         try {
-            DB::beginTransaction();
-            if ($request->hasFile('image')) {
-                $input['image'] = Helper::storeImage($request->file('image'), storage_path('app/public/introductions/'), [
-                    'thumbnail_path' => storage_path('app/public/introductions/thumbnail/'),
-                    'thumbnail_width' => 200,
-                    'image_width' => 1080,
-                    'image_quality' => 100,
-                ]);
-            }
-            $input['order'] = Introduction::where('type', 'introductions')->max('order') + 1;
-            Introduction::create($input);
-            DB::commit();
+            Category::create($input);
             toastr()->success(__('global.saved_successfully'));
         } catch (\Exception $exception) {
-            DB::rollback();
             toastr()->error($exception->getMessage());
         }
 
-        return redirect()->route('settings.introductions');
+        return redirect()->route('settings.categories');
     }
 
 
@@ -102,26 +90,12 @@ class CategoriesController extends Controller
     {
         if (\Request::ajax()) {
             try {
-                $introduction = Introduction::findOrFail($id);
-                DB::beginTransaction();
-                $introductions_to_resort = Introduction::where([['type', 'introductions'], ['order', '>', $introduction->order]])->orderBy('order')->get();
-                IntroductionTranslation::where('introduction_id', $introduction->id)->delete();
-                $introduction->delete();
-                if ($introduction->image && 'introduction_silhouette.png' != $introduction->image) {
-                    Storage::delete('introductions/' . $introduction->image);
-                    Storage::delete('introductions/thumbnail/' . $introduction->image);
-                }
-                if ($introductions_to_resort->count() > 0) {
-                    foreach ($introductions_to_resort as $introduction_to_resort) {
-                        $introduction_to_resort->decrement('order', 1);
-                    }
-                }
-                DB::commit();
+                $category = Category::findOrFail($id);
+                $category->delete();
                 return response()->json([
                     'message' => __('global.deleted_successfully'),
                 ], 200);
             } catch (\Exception $exception) {
-                DB::rollback();
                 return response()->json([
                     'message' => $exception->getMessage(),
                 ], 400);

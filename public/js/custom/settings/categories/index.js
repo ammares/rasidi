@@ -1,7 +1,6 @@
+var _categories = [];
 $(function () {
     'use strict';
-
-    var _categories = [];
 
     var dt_table_categories = $('.datatables-categories');
 
@@ -42,29 +41,16 @@ $(function () {
                                     <i class="fa fa-bars"></i>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a href="${getBaseURL()}settings/email_templates/${row['id']}/edit" class="dropdown-item">
+                                    <a href="javascript:;" onclick="openCategoryForm(${row['id']})" class="dropdown-item" data-id="${row['id']}" >
                                         ${Lang.get('global.edit')}
                                     </a>
-                                    <a class="dropdown-item" href="javascript:;"
-                                        onclick="sendTestEmail(${row['id']},'client')">
-                                        ${Lang.get('global.sent_test_email')}
-                                    </a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:;" data-id="${row['id']}"
-                                        data-name="${row['name']}"
-                                        data-active="${row['active']}" onclick="activateDeactivate(this,'client')">
-                                         ${(row['active'] == 0
-                                ? Lang.get('global.activate')
-                                : Lang.get('global.deactivate'))}
+                                    <a href="javascript:;" class="dropdown-item" data-id="${row['id']}" onclick="deleteCategory(this)">
+                                        ${Lang.get('global.delete')}
                                     </a>
                                 </div>
                             </div>
-                            <a href="javascript:;" class="btn btn-icon btn-flat-${row['active'] === '1' ? 'success' : 'danger'} waves-effect" data-id="${row['id']}"
-                            data-name="${row['name']}" data-active="${row['active']}"
-                            onclick="activateDeactivate(this,'client')">
-                                <i data-toggle="tooltip" data-placement="top" title="${(row['active'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
-                                class="fa fa-check d-inline"></i>
-                            </a>`
+                            `
                         );
                     }
                 },
@@ -112,11 +98,134 @@ $(function () {
                 emptyTable: noDataTemplate(),
             },
         });
-        var data = dt_emailtemplates
-            .rows()
-            .data();
+
     }
-
-
-
 })
+
+function openCategoryForm(id = null) {
+    $dialog = bootbox.dialog({
+        title: ((id) ? 'Edit Category' : 'Add New Category'),
+        message: jQuery('.category-form').html(),
+        size: 'md',
+        onEscape: true,
+        backdrop: true,
+        swapButtonOrder: true,
+        centerVertical: true,
+        buttons: {
+            submit: {
+                label: Lang.get('global.save'),
+                className: 'btn btn-primary btn-save',
+                callback: function () {
+                    $btnConfirm = jQuery('.btn-save', $dialog);
+                    let formElement = jQuery('form', $dialog);
+                    let $formData = new FormData(formElement[0]);
+                    if (id) {
+                        jQuery.ajax({
+                            url: `${getBaseURL()}settings/categories/${id}`,
+                            method: 'POST',
+                            data: $formData,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function () {
+                                btnLoading($btnConfirm);
+                            },
+                            success: function (xhr) {
+                                toastr.success(xhr.message);
+                                $('.datatables-categories').DataTable().ajax.reload();
+                                $dialog.modal('hide');
+                            },
+                            error: HandleJsonErrors,
+                            complete: function () {
+                                btnReset($btnConfirm);
+                            }
+                        });
+                    } else {
+                        jQuery.ajax({
+                            url: `${getBaseURL()}settings/categories`,
+                            method: 'POST',
+                            data: $formData,
+                            contentType: false,
+                            processData: false,
+                            beforeSend: function () {
+                                btnLoading($btnConfirm);
+                            },
+                            success: function (xhr) {
+                                toastr.success(xhr.message);
+                                $('.datatables-categories').DataTable().ajax.reload();
+                                $dialog.modal('hide');
+                            },
+                            error: HandleJsonErrors,
+                            complete: function () {
+                                btnReset($btnConfirm);
+                            }
+                        });
+                    }
+                    return false;
+                }
+            },
+            cancel: {
+                label: Lang.get('global.cancel'),
+                className: 'btn btn-link text-secondary',
+                callback: function () {
+                    $dialog.modal('hide');
+                }
+            }
+        },
+    });
+    $dialog.on('shown.bs.modal', function (e) {
+        $dialogBody = $dialog.find('.bootbox-body');
+        jQuery('[data-class]', $dialogBody).each(function (index, element) {
+            $(this).addClass($(this).data('class'));
+        });
+
+        if (id) {
+            userId = id;
+            let $categoty = _categories[id];
+            jQuery('form', $dialogBody).addClass('was-validated')
+                .append(`<input name="_method" type="hidden" value="PATCH">`);
+            jQuery('[name="amount"]', $dialogBody).val($categoty.amount);
+            jQuery('[name="price"]', $dialogBody).val($categoty.price);
+        }
+    });
+}
+
+function deleteCategory($this) {
+    let id = jQuery($this).data('id');
+    $dialog = bootbox.confirm({
+        title: Lang.get('global.confirm'),
+        message: `<h5> Do you realy want to delete this categoty?</h5>`,
+        swapButtonOrder: true,
+        centerVertical: true,
+        onEscape: true,
+        backdrop: true,
+        buttons: {
+            confirm: {
+                label: Lang.get('global.delete'),
+                className: 'btn-ban btn-danger',
+            },
+            cancel: {
+                label: Lang.get('global.cancel'),
+                className: 'btn-link text-secondary'
+            },
+        },
+        callback: function ($result) {
+            if ($result) {
+                jQuery.ajax({
+                    url: `${getBaseURL()}settings/categories/${id}/destroy`,
+                    method: 'DELETE',
+                    beforeSend: function () {
+                        btnLoading(jQuery('.btn-ban', $dialog))
+                    },
+                    success: function (xhr) {
+                        toastr.success(xhr.message);
+                        $('.datatables-categories').DataTable().ajax.reload();
+                    },
+                    error: HandleJsonErrors,
+                    complete: function () {
+                        btnReset(jQuery('.btn-ban', $dialog));
+                    }
+                });
+            }
+        }
+    });
+}

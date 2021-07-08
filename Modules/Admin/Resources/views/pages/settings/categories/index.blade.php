@@ -8,7 +8,7 @@
 
 @section('actions')
 <x-admin::header_actions>
-    <a type="button" class="btn btn-primary" href="{{ route('settings.keyfeatures.create') }}">
+    <a type="button" class="btn btn-primary" href="javascript:;" onclick="openCategoryForm()">
         <i class="fa fa-plus mr-25"></i>
         <span class="align-middle">{{ __('global.new') }}</span>
     </a>
@@ -36,10 +36,29 @@
             </div>
         </div>
     </div>
-
-    
 </section>
 
+<div class="hide">
+    <div class="category-form">
+      <form method="POST" enctype="multipart/form-data" class="needs-validation">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-12">
+                    <h6 for="name">{{ __('global.amount') }}</h6>
+                    <div class="input-group">
+                        <input type="number" name="amount" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-12 mt-1">
+                    <h6 for="email">{{__('global.price')}}</h6>
+                    <div class="input-group">
+                        <input type="number" name="price" class="form-control" required>
+                    </div>
+                </div>
+        </div>
+    </form>
+  </div>
+</div>
 @endsection
 
 @section('page-script')

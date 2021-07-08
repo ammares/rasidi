@@ -14,11 +14,7 @@
         </ul>
       </div>
       <ul class="nav navbar-nav align-items-center ml-auto">
-         <li class="nav-item">
-          <a class="nav-link" href="{{ route('messages') }}" data-toggle="tooltip" data-placement="top" title="Messags">
-            <i class="ficon" data-feather="mail"></i>
-          </a>
-        </li>
+         
         <li class="nav-item dropdown dropdown-notification mr-25">
           @php
           $unread_notifications_count = auth()->user()->unreadNotifications()->count();
