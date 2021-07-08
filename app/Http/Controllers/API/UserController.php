@@ -4,10 +4,13 @@ namespace App\Http\Controllers\api;
 
 use Illuminate\Http\Request;
 use App\Models\Client;
+use App\Models\ClientsBill;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SignUpRequest;
 use App\Models\Category;
 use App\Models\TransferOperation;
+use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class UserController extends Controller
 {
@@ -136,6 +139,104 @@ class UserController extends Controller
     }
 
 
+    public function beforeTransfer(Request $request)
+    {
+        try
+        {
+          $client = Client::findOrFail($request['user_id']);
+          if (Hash::check($request['password'], $client->password)){
+            return response()->json([
+                'code' => '200',
+            ]);
+          }else{
+            return response()->json([
+                'code' => '400',
+                'message' => 'Password not correct',
+            ]);
+          }
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code' => '400',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
 
+    public function transfer(Request $request)
+    {
+        try
+        {
+          $array = [
+            'client_id' => $request['user_id'],
+            'category_id' => Category::where('amount',$request['category_amount'])->pluck('id')->first(),
+            'mobile' => $request['mobile'],
+            'sim_type' => $request['sim_type'],
+            '$status' => 0
+          ];
+          TransferOperation::create($array);
+          return response()->json([
+              'code' => '200',
+              'message' => 'Operation Send Successfully, You will get your units soon',
+          ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code' => '400',
+                'message' => $exception->getMessage(),//@todo check error message from mobile
+            ]);
+        }
+    }
+
+    public function bills(Request $request)
+    {
+        try
+        {
+          $client_id = $request['user_id'];
+          $bills = ClientsBill::where('client_id',$client_id)->get();
+          return response()->json([
+              'code' => '200',
+              'message' => 'Get Bills Successfully',
+              'data' => $bills
+          ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code' => '400',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
+
+    public function payBill(Request $request)
+    {
+        try
+        {
+          $bill= ClientsBill::findOrFail($request['id']);
+          $client = Client::findOrFail($bill->client_id);
+          if ($client->balance >= $bill->value){
+            $bill->update([
+                'paid' => 1,
+                'payment_at' => Carbon::now()
+            ]);
+            $client->update([
+              'balance' => ($client->balance)-($bill->value)
+            ]);
+            return response()->json([
+                'code' => '200',
+                'message' => 'Bill Payed Successfully',
+                'data' => $client->balance
+            ]);
+          }else {
+            return response()->json([
+                'code' => '400',
+                'message' => 'Bill Value is more than your balance!',
+            ]);
+          }
+
+        } catch (\Exception $exception) {
+            return response()->json([
+                'code' => '400',
+                'message' => $exception->getMessage(),
+            ]);
+        }
+    }
 
 }

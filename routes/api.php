@@ -13,6 +13,12 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('operations', [UserController::class, 'operations']);
     Route::get('categories', [UserController::class, 'categories']);
 
+    Route::post('before_transfer', [UserController::class, 'beforeTransfer']);
+    Route::post('transfer', [UserController::class, 'transfer']);
+
+    Route::post('bills', [UserController::class, 'bills']);
+    Route::post('pay_bill', [UserController::class, 'payBill']);
+
 });
 
 Route::group(['prefix' => 'admin'], function () {
