@@ -17,6 +17,7 @@ use Modules\Admin\Http\Controllers\TransferOperationsController;
 use Modules\Admin\Http\Controllers\UserPreferencesController;
 use Modules\Admin\Http\Controllers\UserProfileController;
 use Modules\Admin\Http\Controllers\UsersController;
+use Modules\Admin\Http\Controllers\HomeController;
 
 Route::prefix('admin')->group(function () {
     Auth::routes(['register' => false, 'reset' => false, 'confirm' => false, 'verify' => false]);
