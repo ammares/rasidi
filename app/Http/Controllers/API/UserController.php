@@ -57,7 +57,7 @@ class UserController extends Controller
         }
     }
 
-    public function beforeLogin(Request $request)
+    /*public function beforeLogin(Request $request)
     {
       try {
           $mobile=$request['mobile'];
@@ -81,17 +81,33 @@ class UserController extends Controller
           ]);
       }
     }
-
+    */
     public function login(Request $request)
     {
         try {
-            $mobile = $request['mobile'];
-            $Client = Client::where('mobile', $mobile)->firstOrFail();
-            return response()->json([
-                'code' => '200',
-                'message' => 'Logged In Successfully',
-                'data' => $Client
-            ]);
+            $mobile=$request['mobile'];
+            $client = Client::where('mobile', $mobile)->first();
+            if (!$client)
+            {
+              return response()->json([
+                  'code' => '400',
+                  'message' => 'Mobile number is not exist!',
+              ]);
+            }else
+            {
+              if(Hash::check($request['password'], $client->password)){
+                return response()->json([
+                    'code' => '200',
+                    'message' => 'Logged In Successfully',
+                    'data' => $client
+                ]);
+              }else{
+                return response()->json([
+                    'code' => '400',
+                    'message' => 'Password is not correct!',
+                ]);
+              }
+            }
         } catch (\Exception $exception) {
             return response()->json([
                 'code' =>'400',

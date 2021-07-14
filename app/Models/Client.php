@@ -37,9 +37,9 @@ class Client extends Authenticatable
         'email_expired_at' => 'datetime',
     ];
 
-    protected $hidden = [
+    /*protected $hidden = [
         'password',
-    ];
+    ];*/
 
     public static function boot()
     {
