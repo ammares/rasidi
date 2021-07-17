@@ -38,9 +38,30 @@
             </div>
         </div>
     </div>
-
-
 </section>
+
+<div class="hide">
+    <div class="category-form">
+      <form method="POST" enctype="multipart/form-data" class="needs-validation">
+        <div class="row">
+            <div class="col-md-12">
+                <input type="hidden" name="id" class="form-control">
+                <div class="col-12">
+                    <h6 for="name">{{ __('global.amount') }}</h6>
+                    <div class="input-group">
+                        <input type="number" name="client_id" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-12 mt-1">
+                    <h6 for="email">{{__('global.price')}}</h6>
+                    <div class="input-group">
+                        <input type="number" name="price" class="form-control" required>
+                    </div>
+            </div>
+        </div>
+      </form>
+    </div>
+</div>
 
 @endsection
 

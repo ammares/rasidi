@@ -23,4 +23,5 @@ Route::group(['prefix' => 'user'], function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('transfer_operations', [AdminController::class, 'transferOperations']);
+    Route::post('transfer_operations', [AdminController::class, 'transferOperationsDone']);
 });
