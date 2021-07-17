@@ -39,31 +39,9 @@ $(function () {
                     targets: 0,
                     render: function (data, type, row, meta) {
                         return (
-                            `<div class="btn btn-icon btn-flat-primary">
-                                <a class="dropdown-toggle hide-arrow text-primary" data-toggle="dropdown">
-                                    <i class="fa fa-bars"></i>
-                                </a>
-                                <div class="dropdown-menu">
-                                    <a href="${getBaseURL()}settings/email_templates/${row['id']}/edit" class="dropdown-item">
-                                        ${Lang.get('global.edit')}
-                                    </a>
-                                    <a class="dropdown-item" href="javascript:;"
-                                        onclick="sendTestEmail(${row['id']},'client')">
-                                        ${Lang.get('global.sent_test_email')}
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:;" data-id="${row['id']}"
-                                        data-name="${row['name']}"
-                                        data-active="${row['active']}" onclick="activateDeactivate(this,'client')">
-                                         ${(row['active'] == 0
-                                ? Lang.get('global.activate')
-                                : Lang.get('global.deactivate'))}
-                                    </a>
-                                </div>
-                            </div>
-                            <a href="javascript:;" class="btn btn-icon btn-flat-${row['status'] == '1' ? 'success' : 'danger'} waves-effect" data-id="${row['id']}"
+                            `<a href="javascript:;" class="btn btn-icon btn-flat-${row['status'] == '1' ? 'success' : 'danger'} waves-effect" data-id="${row['id']}"
                             data-name="${row['name']}" data-active="${row['status']}"
-                            onclick="activateDeactivate(this,'client')">
+                            onclick="">
                                 <i data-toggle="tooltip" data-placement="top" title="${(row['status'] == 0 ? Lang.get('global.activate') : Lang.get('global.deactivate'))}"
                                 class="fa fa-check d-inline"></i>
                             </a>`
@@ -88,13 +66,13 @@ $(function () {
                             extend: 'excel',
                             text: feather.icons['file'].toSvg({ class: 'font-small-4 mr-50' }) + 'Excel .xlsx',
                             className: 'dropdown-item',
-                            exportOptions: { columns: [1, 2, 3] }
+                            exportOptions: { columns: [1, 2, 3, 4, 5] }
                         },
                         {
                             extend: 'csv',
                             text: feather.icons['file-text'].toSvg({ class: 'font-small-4 mr-50' }) + 'Excel .csv',
                             className: 'dropdown-item',
-                            exportOptions: { columns: [1, 2, 3] }
+                            exportOptions: { columns: [1, 2, 3, 4, 5] }
                         },
                     ],
                     init: function (api, node, config) {
