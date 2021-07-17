@@ -43,6 +43,7 @@
       <form method="POST" enctype="multipart/form-data" class="needs-validation">
         <div class="row">
             <div class="col-md-12">
+                <input type="hidden" name="id" class="form-control">
                 <div class="col-12">
                     <h6 for="name">{{ __('global.amount') }}</h6>
                     <div class="input-group">

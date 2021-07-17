@@ -154,7 +154,6 @@ class UserController extends Controller
         }
     }
 
-
     public function beforeTransfer(Request $request)
     {
         try

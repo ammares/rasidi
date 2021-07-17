@@ -8,7 +8,7 @@
 
 @section('actions')
 <x-admin::header_actions>
-    <a type="button" class="btn btn-primary" href="{{ route('settings.keyfeatures.create') }}">
+    <a type="button" class="btn btn-primary" href="{{ route('settings') }}">
         <i class="fa fa-plus mr-25"></i>
         <span class="align-middle">{{ __('global.new') }}</span>
     </a>

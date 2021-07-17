@@ -121,7 +121,7 @@ function openCategoryForm(id = null) {
                     let $formData = new FormData(formElement[0]);
                     if (id) {
                         jQuery.ajax({
-                            url: `${getBaseURL()}settings/categories/${id}`,
+                            url: `${getBaseURL()}settings/categories/${id}/update`,
                             method: 'POST',
                             data: $formData,
                             contentType: false,
@@ -185,6 +185,7 @@ function openCategoryForm(id = null) {
                 .append(`<input name="_method" type="hidden" value="PATCH">`);
             jQuery('[name="amount"]', $dialogBody).val($categoty.amount);
             jQuery('[name="price"]', $dialogBody).val($categoty.price);
+            jQuery('[name="id"]', $dialogBody).val($categoty.id);
         }
     });
 }

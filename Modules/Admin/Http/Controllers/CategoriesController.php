@@ -39,51 +39,31 @@ class CategoriesController extends Controller
         $input = $request->validated();
         try {
             Category::create($input);
-            toastr()->success(__('global.saved_successfully'));
+            return response()->json([
+                'message' => __('global.saved_successfully'),
+            ], 200);
         } catch (\Exception $exception) {
-            toastr()->error($exception->getMessage());
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], 400);
         }
-
-        return redirect()->route('settings.categories');
     }
 
 
-    public function update(IntroductionRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
-        $input = $request->except('_token', 'image');
-        $img_to_delete = '';
+        $input = $request->validated();
         try {
-            $introduction = Introduction::findOrFail($id);
-            DB::beginTransaction();
-            if ($request->hasFile('image')) {
-                $input['image'] = Helper::storeImage(
-                    $request->file('image'),
-                    storage_path('app/public/introductions/'),
-                    [
-                        'thumbnail_path' => storage_path('app/public/introductions/thumbnail/'),
-                        'thumbnail_width' => 200,
-                        'image_width' => 1080,
-                        'image_quality' => 100,
-                    ]
-                );
-                $img_to_delete = $introduction->image;
-            }
-            $introduction->update($input);
-            if ($img_to_delete) {
-                Storage::delete('introductions/' . $introduction->image);
-                Storage::delete('introductions/thumbnail/' . $introduction->image);
-            }
-            DB::commit();
-            toastr()->success(__('global.updated_successfully'));
+            $category=Category::findOrFail($id);
+            $category->update($input);
+            return response()->json([
+                'message' => __('global.updated_successfully'),
+            ], 200);
         } catch (\Exception $exception) {
-            if ($request->hasFile('image')) {
-                Storage::delete('howitworks/' . $request->file('image'));
-            }
-            DB::rollback();
-            toastr()->error($exception->getMessage());
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], 400);
         }
-
-        return redirect()->route('settings.introductions');
     }
 
     public function destroy($id)

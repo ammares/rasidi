@@ -91,7 +91,8 @@ Route::prefix('admin')->group(function () {
             Route::prefix('categories')->group(function () {
                 Route::get('/', [CategoriesController::class, 'index'])->name('settings.categories');
                 Route::post('/', [CategoriesController::class, 'store'])->name('settings.categories.store');
-                Route::delete('{id}/destroy', [CategoriesController::class, 'destroy'])->name('settings.categories.destroy');
+                Route::patch('/{id}/update', [CategoriesController::class, 'update'])->name('settings.categories.update');
+                Route::delete('/{id}/destroy', [CategoriesController::class, 'destroy'])->name('settings.categories.destroy');
 
             });
 

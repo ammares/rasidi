@@ -14,11 +14,14 @@ class CategoryRequest extends FormRequest
 
     public function rules()
     {
-      $amount = $this->amount;
-      $id=Category::where('amount',$amount)->pluck('id')->first();
+      /*$amount = $this->amount;
+      $id_amount=Category::where('amount',$amount)->pluck('id')->first();
+      $price = $this->price;
+      $id_price=Category::where('price',$price)->pluck('id')->first();
+      dd($id_amount,$id_price);*/
       return [
-          'amount' => 'required|integer|unique:categories,amount,' . $id,
-          'price' => 'required|integer|unique:categories,price,' . $id,
+          'amount' => 'required|integer|unique:categories,amount,' . $this->id,
+          'price' => 'required|integer|unique:categories,price,' . $this->id,
 
       ];
     }
