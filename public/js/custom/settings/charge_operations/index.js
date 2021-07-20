@@ -123,7 +123,60 @@ $(function () {
             .rows()
             .data();
     }
-
-
-
 })
+
+function addChargeOperation() {
+    $dialog = bootbox.dialog({
+        title: 'Add New Charge Operation',
+        message: jQuery('.charge-operation-form').html(),
+        size: 'md',
+        onEscape: true,
+        backdrop: true,
+        swapButtonOrder: true,
+        centerVertical: true,
+        buttons: {
+            submit: {
+                label: Lang.get('global.save'),
+                className: 'btn btn-primary btn-save',
+                callback: function () {
+                    $btnConfirm = jQuery('.btn-save', $dialog);
+                    let formElement = jQuery('form', $dialog);
+                    let $formData = new FormData(formElement[0]);
+                    jQuery.ajax({
+                        url: `${getBaseURL()}settings/categories`,
+                        method: 'POST',
+                        data: $formData,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function () {
+                            btnLoading($btnConfirm);
+                        },
+                        success: function (xhr) {
+                            toastr.success(xhr.message);
+                            $('.datatables-charge-operations').DataTable().ajax.reload();
+                            $dialog.modal('hide');
+                        },
+                        error: HandleJsonErrors,
+                        complete: function () {
+                            btnReset($btnConfirm);
+                        }
+                    });
+                    return false;
+                }
+            },
+            cancel: {
+                label: Lang.get('global.cancel'),
+                className: 'btn btn-link text-secondary',
+                callback: function () {
+                    $dialog.modal('hide');
+                }
+            }
+        },
+    });
+    $dialog.on('shown.bs.modal', function (e) {
+        $dialogBody = $dialog.find('.bootbox-body');
+        jQuery('[data-class]', $dialogBody).each(function (index, element) {
+            $(this).addClass($(this).data('class'));
+        });
+    });
+}

@@ -8,7 +8,8 @@
 
 @section('actions')
 <x-admin::header_actions>
-    <a type="button" class="btn btn-primary" href="{{ route('settings') }}">
+    <a type="button" class="btn btn-primary"
+    href="javascript:;" onclick="addChargeOperation()">
         <i class="fa fa-plus mr-25"></i>
         <span class="align-middle">{{ __('global.new') }}</span>
     </a>
@@ -41,23 +42,28 @@
 </section>
 
 <div class="hide">
-    <div class="category-form">
+    <div class="charge-operation-form">
       <form method="POST" enctype="multipart/form-data" class="needs-validation">
         <div class="row">
             <div class="col-md-12">
-                <input type="hidden" name="id" class="form-control">
                 <div class="col-12">
-                    <h6 for="name">{{ __('global.amount') }}</h6>
+                    <h6 for="client_id">{{ __('global.client') }}</h6>
                     <div class="input-group">
-                        <input type="number" name="client_id" class="form-control" required>
+                        <select class="form-control">
+                          @foreach ($clients as $client)
+                            <option value="{{$client['id']}}">
+                              {{$client['first_name'].' '.$client['last_name'].', '.$client['mobile']}}</option>
+                          @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="col-12 mt-1">
-                    <h6 for="email">{{__('global.price')}}</h6>
+                    <h6 for="amount">{{ __('global.amount') }}</h6>
                     <div class="input-group">
-                        <input type="number" name="price" class="form-control" required>
+                        <input type="number" name="amount" class="form-control" required>
                     </div>
-            </div>
+                </div>
+              </div>
         </div>
       </form>
     </div>
