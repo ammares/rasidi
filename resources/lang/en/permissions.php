@@ -100,4 +100,11 @@ return
 	'clients_gateway_details' => 'clients_gateway_details',
 	'clients_renew_subscription' => 'clients_renew_subscription',
 	'settings_gateways_details' => 'settings_gateways_details',
+	'settings_categories' => 'settings_categories',
+	'settings_categories_store' => 'settings_categories_store',
+	'settings_categories_update' => 'settings_categories_update',
+	'settings_categories_destroy' => 'settings_categories_destroy',
+	'settings_transfer_operations' => 'settings_transfer_operations',
+	'settings_charge_operations' => 'settings_charge_operations',
+	'settings_clients_bills' => 'settings_clients_bills',
 ];

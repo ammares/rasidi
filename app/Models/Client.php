@@ -25,17 +25,12 @@ class Client extends Authenticatable
         'phone',
         'active',
         'ban',
-        'email_verification_code',
-        'email_expired_at',
-        'email_verified',
+        'verified',
         'national_num',
         'balance',
         'address',
     ];
 
-    protected $casts = [
-        'email_expired_at' => 'datetime',
-    ];
 
     /*protected $hidden = [
         'password',
@@ -48,9 +43,9 @@ class Client extends Authenticatable
         static::creating(function (Client $client) {
             if (!App::runningInConsole()) {
                 $client->password = bcrypt(request()->input('password'));
-                $client->email_verification_code = rand(1001, 9999);
-                $client->email_expired_at = now()->addDays(3);
-                $client->email_verified = '0';
+                //$client->email_verification_code = rand(1001, 9999);
+                //$client->email_expired_at = now()->addDays(3);
+                $client->verified = '0';
             }
         });
     }
@@ -91,7 +86,6 @@ class Client extends Authenticatable
             'first_name',
             'middle_name',
             'last_name',
-            'email',
             'password',
             'mobile',
             'phone',

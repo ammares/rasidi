@@ -57,31 +57,6 @@ class UserController extends Controller
         }
     }
 
-    /*public function beforeLogin(Request $request)
-    {
-      try {
-          $mobile=$request['mobile'];
-          $mobile_exists = Client::where('mobile', $mobile)->pluck('mobile')->first();
-          if ($mobile==$mobile_exists)
-          {
-            return response()->json([
-                'code' => '200',
-                'message' => 'Mobile Number is Exist',
-            ]);
-          }else{
-            return response()->json([
-                'code' => '400',
-                'message' => 'Mobile Number is Not Exist',
-            ]);
-          }
-      } catch (\Exception $exception) {
-          return response()->json([
-              'code' => '400',
-              'message' => $exception->getMessage(),//@todo check error message from mobile
-          ]);
-      }
-    }
-    */
     public function login(Request $request)
     {
         try {
@@ -95,7 +70,13 @@ class UserController extends Controller
               ]);
             }else
             {
-              if(Hash::check($request['password'], $client->password)){
+              if(!($client->verified)){
+                $client->delete();
+                return response()->json([
+                    'code' => '200',
+                    'message' => 'Your Account is Not Verified, Please Sign Up Again',
+                ]);
+              }else if(Hash::check($request['password'], $client->password)){
                 return response()->json([
                     'code' => '200',
                     'message' => 'Logged In Successfully',
@@ -119,16 +100,26 @@ class UserController extends Controller
     public function operations(Request $request)
     {
         try {
-            $client_id = $request['id'];
-            $operations = TransferOperation::where('client_id',$client_id)->get();
+            $client = Client::findOrFail($request['id']);
+            $operations = TransferOperation::where('client_id',$client->id)->get();
             foreach($operations as $operation){
                 $operation->category_id=(string)Category::where('id',$operation->category_id)->pluck('amount')->first();
             }
-            return response()->json([
-                'code' => '200',
-                'message' => 'Get Operations Successfully',
-                'data' => $operations
-            ]);
+            $verify_on_register=$request['verify'];
+            if($verify_on_register=='true'){
+              $client->update(['verified'=>1]);
+              return response()->json([
+                  'code' => '200',
+                  'message' => 'Verified Successfully',
+                  'data' => $operations
+              ]);
+            }else{
+              return response()->json([
+                  'code' => '200',
+                  'message' => 'Get Operations Successfully',
+                  'data' => $operations
+              ]);
+            }
         } catch (\Exception $exception) {
             return response()->json([
                 'code' =>'400',
@@ -166,7 +157,7 @@ class UserController extends Controller
           }else{
             return response()->json([
                 'code' => '400',
-                'message' => 'Password not correct',
+                'message' => 'Password is Not Correct',
             ]);
           }
         } catch (\Exception $exception) {
@@ -181,6 +172,13 @@ class UserController extends Controller
     {
         try
         {
+          $client=Client::findOrFail($request['user_id']);
+          if($client->balance<$request['category_amount'] ){
+            return response()->json([
+                'code' => '400',
+                'message' => 'You Do Not Have Enough Balance!',
+            ]);
+          }
           $array = [
             'client_id' => $request['user_id'],
             'category_id' => Category::where('amount',$request['category_amount'])->pluck('id')->first(),
@@ -191,12 +189,12 @@ class UserController extends Controller
           TransferOperation::create($array);
           return response()->json([
               'code' => '200',
-              'message' => 'Operation Send Successfully, You will get your units soon',
+              'message' => 'Operation Send Successfully, You Will Get Your Units Soon',
           ]);
         } catch (\Exception $exception) {
             return response()->json([
                 'code' => '400',
-                'message' => $exception->getMessage(),//@todo check error message from mobile
+                'message' => $exception->getMessage(),
             ]);
         }
     }
@@ -242,7 +240,7 @@ class UserController extends Controller
           }else {
             return response()->json([
                 'code' => '400',
-                'message' => 'Bill Value is more than your balance!',
+                'message' => 'Bill Value Is More Than Your Balance!',
             ]);
           }
 
@@ -252,6 +250,23 @@ class UserController extends Controller
                 'message' => $exception->getMessage(),
             ]);
         }
+    }
+
+    public function getBalance(Request $request)
+    {
+      try{
+        $client = Client::findOrFail($request['id']);
+        return response()->json([
+            'code' => '200',
+            'message' => 'Balance Updated Successfully',
+            'data' => $client->balance
+        ]);
+      } catch (\Exception $exception) {
+          return response()->json([
+              'code' => '400',
+              'message' => $exception->getMessage(),
+          ]);
+      }
     }
 
 }

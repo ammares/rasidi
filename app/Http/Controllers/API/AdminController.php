@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\UserResource;
 use App\Models\TransferOperation;
 use App\Models\Category;
+use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Helpers\Helper;
@@ -17,7 +18,7 @@ class AdminController extends Controller
   public function transferOperations()
   {
       try {
-          $transfer_operations = TransferOperation::where('status',0)->orderBy('id', 'DESC')->get();
+          $transfer_operations = TransferOperation::where('status',0)->orderBy('id', 'ASC')->get();
           foreach ($transfer_operations as $transfer_operation) {
             $transfer_operation->category_id=(string)Category::where('id',$transfer_operation->category_id)->pluck('amount')->first();
           }
@@ -48,9 +49,13 @@ class AdminController extends Controller
       try {
           $transfer_operation = TransferOperation::findOrFail($request['id']);
           $transfer_operation->update(['status'=>1]);
+          $client = Client::findOrFail($transfer_operation->client_id);
+          $category = Category::findOrFail($transfer_operation->category_id);
+          $client->update(['balance'=>$client->balance-$category->price]);
           return response()->json([
               'code' => '200',
               'message' => 'Transfer Operation Completed Successfully',
+              'data' => $client->balance
           ]);
       } catch (\Exception $exception) {
           return response()->json([

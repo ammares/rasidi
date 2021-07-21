@@ -19,6 +19,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('bills', [UserController::class, 'bills']);
     Route::post('pay_bill', [UserController::class, 'payBill']);
 
+    Route::post('get_balance', [UserController::class, 'getBalance']);
+
 });
 
 Route::group(['prefix' => 'admin'], function () {

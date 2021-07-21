@@ -54,16 +54,16 @@ class UsersController extends Controller
                 $user=User::create($input);
                 if(!Empty($request['role'])){
                     $user->assignRole(Role::findByName($request['role']));
-                }      
+                }
                 DB::commit();
-                
-                $this->sendEmail($user, 'user_login_credentials', [
+
+                /*$this->sendEmail($user, 'user_login_credentials', [
                     'business_name' => config('system-preferences.business_name'),
                     'username' => $input['name'],
                     'url' => route('home'),
                     'email' => $input['email'],
                     'password' => $clear_text_pass,
-                ]);
+                ]);*/
 
                 return response()->json([
                     'message' => __('global.saved_successfully'),

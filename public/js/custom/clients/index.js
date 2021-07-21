@@ -62,7 +62,7 @@ var _aoColumns = [
         bSearchable: false,
         render: function (data, type, full, meta) {
             var $name = full['first_name'] + ' ' + full['middle_name'] + ' '+ full['last_name'],
-                $email = full['email'],
+
                 $image = full['avatar'],
                 stateNum = Math.floor(Math.random() * 6),
                 states = ['success', 'danger', 'warning', 'info', 'primary', 'secondary'],
@@ -94,7 +94,7 @@ var _aoColumns = [
                 $name +
                 '</h6>' +
                 '<small class="text-truncate text-muted">' +
-                $email +
+              
                 '</small>' +
                 '</div>' +
                 '</div>';
