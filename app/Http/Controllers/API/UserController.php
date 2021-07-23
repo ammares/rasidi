@@ -173,24 +173,44 @@ class UserController extends Controller
         try
         {
           $client=Client::findOrFail($request['user_id']);
-          if($client->balance<$request['category_amount'] ){
+          if($client->balance < $request['category_amount'] ){
             return response()->json([
                 'code' => '400',
                 'message' => 'You Do Not Have Enough Balance!',
             ]);
           }
-          $array = [
-            'client_id' => $request['user_id'],
-            'category_id' => Category::where('amount',$request['category_amount'])->pluck('id')->first(),
-            'mobile' => $request['mobile'],
-            'sim_type' => $request['sim_type'],
-            '$status' => 0
-          ];
-          TransferOperation::create($array);
-          return response()->json([
-              'code' => '200',
-              'message' => 'Operation Send Successfully, You Will Get Your Units Soon',
-          ]);
+          $mobile=substr($request['mobile'], 2, 1);
+
+          if( in_array($mobile, ['4','5','6']) && $request['sim_type']=='Syriatel' )
+          {
+            return response()->json([
+                'code' => '400',
+                'message' => 'You Number is Not Syriatel',
+            ]);
+          }else if (in_array($mobile, ['9','8','3']) && $request['sim_type']=='MTN'){
+            return response()->json([
+                'code' => '400',
+                'message' => 'You Number is Not MTN',
+            ]);
+          }else if (in_array($mobile, ['0','1','2','7'])){
+            return response()->json([
+                'code' => '400',
+                'message' => 'You Number is Not Valid',
+            ]);
+          }else{
+            $array = [
+              'client_id' => $request['user_id'],
+              'category_id' => Category::where('amount',$request['category_amount'])->pluck('id')->first(),
+              'mobile' => $request['mobile'],
+              'sim_type' => $request['sim_type'],
+              '$status' => 0
+            ];
+            TransferOperation::create($array);
+            return response()->json([
+                'code' => '200',
+                'message' => 'Operation Send Successfully, You Will Get Your Units Soon',
+            ]);
+          }
         } catch (\Exception $exception) {
             return response()->json([
                 'code' => '400',

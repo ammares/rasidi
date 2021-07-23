@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('before_register', [UserController::class, 'beforeRegister']);
@@ -20,6 +21,8 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('pay_bill', [UserController::class, 'payBill']);
 
     Route::post('get_balance', [UserController::class, 'getBalance']);
+
+    Route::post('send_notification', [NotificationController::class, 'send']);
 
 });
 
